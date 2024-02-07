@@ -1,1 +1,41 @@
+//vector的基本操作和适用场景
+//可以当作顺序链表,需要使用链表时,可以不用写指针/变长数组
 
+#include <stdio.h>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    //定义一个vector vi
+    vector<int> vi;//<>填类型,node,vector本身也可以(嵌套数组，二维)
+    //vector<int> vi1[100];//这种写法确定了vi的大小，无法再扩增
+    vector<vector<int> > dvi;//定义二维vector,最后一个>要用空格隔开,避免编译器出错
+    //初始化/遍历
+    //方式：下标/指针
+    for (int i = 1; i <= 5; i++) {
+        vi.push_back(i);//push at back 在末尾插入元素
+        //或vi.[i]=x;
+    }
+    vector<int>::iterator it = vi.begin();//新建一个vector指针(iterator) it,begin()返回头位置
+    for (int i = 0; i < 5; i++) {
+        printf("%d", *(it + i));//it为指针，要解引用
+    }
+    //end()指向的是尾元素的下一个元素
+    it = vi.end() - 1;//指向尾元素
+    printf("%d", it);
+    //清空vector表clear()
+    vi.clear();//O(n),n为总元素
+    //插入insert(it,x)
+    vi.insert(it, 5);//在it指向的位置插入5,如果这个位置本来有元素，则这个元素被挤到下一个位置
+    //获取vector总元素 size()
+    unsigned int sz = vi.size();//和sizeof()一样，返回的是无符号
+    //删除指定位置/范围的元素 erase()
+    //1.指定位置
+    vi.erase(it);//删除it位置的元素
+    vi.pop_back();//删除尾元素
+    //2.指定范围[first,last)
+    vi.erase(vi.begin(), it);//删除[begin,it)位置的元素
+    vi.erase(vi.begin(), vi.end());//效果等同于clear()
+    return 0;
+}
